@@ -3,6 +3,14 @@
 import { useEffect, useState } from 'react'
 import ForceGraph2D from 'react-force-graph-2d'
 
+interface Item {
+    id: string;
+    name: string;
+    image: string;
+    description: string;
+    type: 'Stakeholders' | 'Intervention_points' | 'KPI' | 'Tools';
+}
+
 const GraphVisualization = ({ selectedItem }: { selectedItem: Item & { type: string } }) => {
     const [graphData, setGraphData] = useState({ nodes: [], links: [] })
 

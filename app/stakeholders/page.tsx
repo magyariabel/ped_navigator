@@ -52,7 +52,12 @@ export default function StakeholdersPage() {
             </div>
             <Sidebar selectedItem={selectedStakeholder} />
             <div className="md:col-span-3 mt-8">
-                <ClientOnlyGraphVisualization selectedItem={selectedStakeholder ? { ...selectedStakeholder, type: 'Stakeholders' } : null} />
+                <ClientOnlyGraphVisualization
+                    selectedItem={selectedStakeholder ?
+                        { ...selectedStakeholder, type: 'Stakeholders', image: selectedStakeholder.image || '' } :
+                        null
+                    }
+                />
             </div>
         </div>
     )

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent } from "@/components/ui/card"
 import { Sidebar } from '@/components/Sidebar'
 import ClientOnlyGraphVisualization from '@/components/ClientOnlyGraphVisualization'
+import { Item } from '@/components/DetailModal'
 import { Tool } from '@/lib/types'
 
 export default function ToolsPage() {
@@ -18,7 +19,10 @@ export default function ToolsPage() {
                     throw new Error('Failed to fetch tools');
                 }
                 const fetchedTools = await response.json();
-                setTools(fetchedTools);
+                setTools(fetchedTools.map(tool => ({
+                    ...tool,
+                    usage: tool.usage || 'Usage information not available'
+                })));
             } catch (error) {
                 console.error('Error fetching tools:', error);
             }
@@ -54,7 +58,12 @@ export default function ToolsPage() {
             </div>
             <Sidebar selectedItem={selectedTool} />
             <div className="md:col-span-3 mt-8">
-                <ClientOnlyGraphVisualization selectedItem={selectedTool ? { ...selectedTool, type: 'Tools' } : null} />
+                <ClientOnlyGraphVisualization
+                    selectedItem={selectedTool ?
+                        { ...selectedTool, type: 'Tools', image: selectedTool.image || '' } :
+                        null
+                    }
+                />
             </div>
         </div>
     )

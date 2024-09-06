@@ -18,7 +18,7 @@ export default function KPIsPage() {
                     throw new Error('Failed to fetch KPIs');
                 }
                 const fetchedKPIs = await response.json();
-                setKPIs(fetchedKPIs);
+                setKPIs(fetchedKPIs as KPI[]);
             } catch (error) {
                 console.error('Error fetching KPIs:', error);
             }
@@ -52,7 +52,12 @@ export default function KPIsPage() {
             </div>
             <Sidebar selectedItem={selectedKPI} />
             <div className="md:col-span-3 mt-8">
-                <ClientOnlyGraphVisualization selectedItem={selectedKPI ? { ...selectedKPI, type: 'KPI' } : null} />
+                <ClientOnlyGraphVisualization
+                    selectedItem={selectedKPI ?
+                        { ...selectedKPI, type: 'KPI', image: selectedKPI.image || '/placeholder.svg?height=200&width=200' } :
+                        null
+                    }
+                />
             </div>
         </div>
     )

@@ -1,25 +1,6 @@
-export interface Stakeholder {
-    id: string
-    name: string
-    description: string
-}
+import { Item } from '@/components/DetailModal';
 
-export interface KPI {
-    id: string
-    name: string
-    description: string
-    calculationMethod: string
-}
-
-export interface Tool {
-    id: string
-    name: string
-    description: string
-    usage: string
-}
-
-export interface InterventionPoint {
-    id: string
-    name: string
-    description: string
-}
+export type Stakeholder = Omit<Item, 'type'> & { type: 'Stakeholders' };
+export type InterventionPoint = Omit<Item, 'type'> & { type: 'Intervention_points' };
+export type KPI = Omit<Item, 'type'> & { type: 'KPI' };
+export type Tool = Omit<Item, 'type'> & { type: 'Tools'; usage: string };

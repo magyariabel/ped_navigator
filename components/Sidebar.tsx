@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { Card, CardContent } from "./ui/card"
+import { Item } from '@/components/DetailModal';
 
-export function Sidebar({ selectedItem }) {
+export function Sidebar({ selectedItem }: { selectedItem: Item | null }) {
     const [relatedKPIs, setRelatedKPIs] = useState([])
     const [relatedTools, setRelatedTools] = useState([])
     const [relatedInterventionPoints, setRelatedInterventionPoints] = useState([])

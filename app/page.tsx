@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import Image from 'next/image'
-import { SearchBar } from '@/components/SearchBar'
+import { ClientSearchBar } from '@/components/ClientSearchBar'
 import { DetailModal } from '@/components/DetailModal'
 
 type Item = {
@@ -13,6 +13,7 @@ type Item = {
     name: string
     image: string
     description: string
+    type: 'Stakeholders' | 'Intervention_points' | 'KPI' | 'Tools'
 }
 
 type CategoryData = {
@@ -65,7 +66,8 @@ export default function LandingPage() {
                             id: item.id,
                             name: item.name,
                             image: item.image || '/placeholder.svg?height=200&width=200',
-                            description: item.description
+                            description: item.description,
+                            type: category
                         }))];
                     })
                 );
@@ -82,7 +84,7 @@ export default function LandingPage() {
     return (
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-3xl font-bold mb-8 text-center">Positive Energy Design Navigator</h1>
-            <SearchBar categories={Object.keys(categoryData)} onSearch={setSelectedItem} />
+            <ClientSearchBar categories={Object.keys(categoryData)} onSearch={setSelectedItem} />
 
             <Tabs defaultValue="stakeholders" className="w-full mt-8">
                 <TabsList className="grid w-full grid-cols-4 mb-8">

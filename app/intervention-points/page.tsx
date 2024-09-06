@@ -18,7 +18,7 @@ export default function InterventionPointsPage() {
                     throw new Error('Failed to fetch intervention points')
                 }
                 const data = await response.json()
-                setInterventionPoints(data)
+                setInterventionPoints(data as InterventionPoint[])
             } catch (error) {
                 console.error('Error fetching intervention points:', error)
             }
@@ -53,7 +53,12 @@ export default function InterventionPointsPage() {
             </div>
             <Sidebar selectedItem={selectedInterventionPoint} />
             <div className="md:col-span-3 mt-8">
-                <ClientOnlyGraphVisualization selectedItem={selectedInterventionPoint ? { ...selectedInterventionPoint, type: 'Intervention_points' } : null} />
+                <ClientOnlyGraphVisualization
+                    selectedItem={selectedInterventionPoint ?
+                        { ...selectedInterventionPoint, type: 'Intervention_points', image: selectedInterventionPoint.image || '' } :
+                        null
+                    }
+                />
             </div>
         </div>
     )

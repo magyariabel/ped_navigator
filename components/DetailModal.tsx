@@ -4,11 +4,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import Image from 'next/image'
 import { GraphVisualization } from '@/components/GraphVisualization'
 
-interface Item {
+export interface Item {
     id: string;
     name: string;
     image: string;
     description: string;
+    type: 'Stakeholders' | 'Intervention_points' | 'KPI' | 'Tools';
 }
 
 interface DetailModalProps {
