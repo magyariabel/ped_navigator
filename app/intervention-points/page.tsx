@@ -13,17 +13,18 @@ export default function InterventionPointsPage() {
     useEffect(() => {
         const fetchInterventionPoints = async () => {
             try {
-                const response = await fetch('/api/intervention-points');
+                const response = await fetch('/api/interventionPoints')
                 if (!response.ok) {
-                    throw new Error('Failed to fetch intervention points');
+                    throw new Error('Failed to fetch intervention points')
                 }
-                const fetchedInterventionPoints = await response.json();
-                setInterventionPoints(fetchedInterventionPoints);
+                const data = await response.json()
+                setInterventionPoints(data)
             } catch (error) {
-                console.error('Error fetching intervention points:', error);
+                console.error('Error fetching intervention points:', error)
             }
         }
-        fetchInterventionPoints();
+
+        fetchInterventionPoints()
     }, [])
 
     return (
@@ -31,14 +32,14 @@ export default function InterventionPointsPage() {
             <div className="md:col-span-2">
                 <h2 className="text-2xl font-semibold mb-4">Intervention Points</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {interventionPoints.map(interventionPoint => (
+                    {interventionPoints.map(point => (
                         <Card
-                            key={interventionPoint.id}
+                            key={point.id}
                             className="cursor-pointer hover:shadow-lg transition-shadow"
-                            onClick={() => setSelectedInterventionPoint(interventionPoint)}
+                            onClick={() => setSelectedInterventionPoint(point)}
                         >
                             <CardContent className="p-4">
-                                <h3 className="text-lg font-semibold">{interventionPoint.name}</h3>
+                                <h3 className="text-lg font-semibold">{point.name}</h3>
                             </CardContent>
                         </Card>
                     ))}
