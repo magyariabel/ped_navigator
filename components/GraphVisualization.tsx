@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import ForceGraph2D from 'react-force-graph-2d'
 
-const GraphVisualization = ({ selectedItem }: { selectedItem: any }) => {
+const GraphVisualization = ({ selectedItem }: { selectedItem: Item & { type: string } }) => {
     const [graphData, setGraphData] = useState({ nodes: [], links: [] })
 
     useEffect(() => {
@@ -21,6 +21,8 @@ const GraphVisualization = ({ selectedItem }: { selectedItem: any }) => {
             nodeLabel="name"
             nodeAutoColorBy="group"
             linkDirectionalParticles={2}
+            width={300}
+            height={200}
         />
     )
 }
