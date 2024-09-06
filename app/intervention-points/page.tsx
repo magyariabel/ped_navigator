@@ -51,7 +51,7 @@ export default function InterventionPointsPage() {
             </div>
             <Sidebar selectedItem={selectedInterventionPoint} />
             <div className="md:col-span-3 mt-8">
-                <ClientOnlyGraphVisualization selectedItem={selectedInterventionPoint} />
+                <ClientOnlyGraphVisualization selectedItem={selectedInterventionPoint ? { ...selectedInterventionPoint, type: 'Intervention_points' } : null} />
             </div>
         </div>
     )

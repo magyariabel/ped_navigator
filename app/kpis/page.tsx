@@ -53,7 +53,7 @@ export default function KPIsPage() {
             </div>
             <Sidebar selectedItem={selectedKPI} />
             <div className="md:col-span-3 mt-8">
-                <ClientOnlyGraphVisualization selectedItem={selectedKPI} />
+                <ClientOnlyGraphVisualization selectedItem={selectedKPI ? { ...selectedKPI, type: 'KPI' } : null} />
             </div>
         </div>
     )

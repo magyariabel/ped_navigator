@@ -13,16 +13,18 @@ export default function StakeholdersPage() {
 
     useEffect(() => {
         const fetchStakeholders = async () => {
-            const session = driver.session()
             try {
-                const result = await session.run('MATCH (s:Stakeholder_roles) RETURN s')
-                const fetchedStakeholders = result.records.map(record => record.get('s').properties as Stakeholder)
-                setStakeholders(fetchedStakeholders)
-            } finally {
-                await session.close()
+                const response = await fetch('/api/stakeholders');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch stakeholders');
+                }
+                const fetchedStakeholders = await response.json();
+                setStakeholders(fetchedStakeholders);
+            } catch (error) {
+                console.error('Error fetching stakeholders:', error);
             }
         }
-        fetchStakeholders()
+        fetchStakeholders();
     }, [])
 
     return (
@@ -51,7 +53,7 @@ export default function StakeholdersPage() {
             </div>
             <Sidebar selectedItem={selectedStakeholder} />
             <div className="md:col-span-3 mt-8">
-                <ClientOnlyGraphVisualization selectedItem={selectedStakeholder} />
+                <ClientOnlyGraphVisualization selectedItem={selectedStakeholder ? { ...selectedStakeholder, type: 'Stakeholder_roles' } : null} />
             </div>
         </div>
     )

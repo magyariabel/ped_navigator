@@ -13,16 +13,18 @@ export default function ToolsPage() {
 
     useEffect(() => {
         const fetchTools = async () => {
-            const session = driver.session()
             try {
-                const result = await session.run('MATCH (t:Tools) RETURN t')
-                const fetchedTools = result.records.map(record => record.get('t').properties as Tool)
-                setTools(fetchedTools)
-            } finally {
-                await session.close()
+                const response = await fetch('/api/tools');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch tools');
+                }
+                const fetchedTools = await response.json();
+                setTools(fetchedTools);
+            } catch (error) {
+                console.error('Error fetching tools:', error);
             }
         }
-        fetchTools()
+        fetchTools();
     }, [])
 
     return (
