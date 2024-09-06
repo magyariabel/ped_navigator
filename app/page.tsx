@@ -47,33 +47,30 @@ export default function LandingPage() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const session = driver.session()
             try {
-                const queries = {
-                    stakeholders: 'MATCH (s:Stakeholder_roles) RETURN s.id as id, s.name as name, s.image as image',
-                    interventionPoints: 'MATCH (i:Intervention_points) RETURN i.id as id, i.name as name, i.image as image',
-                    kpis: 'MATCH (k:KPI) RETURN k.id as id, k.name as name, k.image as image',
-                    tools: 'MATCH (t:Tools) RETURN t.id as id, t.name as name, t.image as image'
-                }
-
+                const categories = ['stakeholders', 'interventionPoints', 'kpis', 'tools'];
                 const results = await Promise.all(
-                    Object.entries(queries).map(async ([category, query]) => {
-                        const result = await session.run(query)
-                        return [category, result.records.map(record => ({
-                            id: record.get('id'),
-                            name: record.get('name'),
-                            image: record.get('image') || '/placeholder.svg?height=200&width=200'
-                        }))]
+                    categories.map(async (category) => {
+                        const response = await fetch(`/api/${category}`);
+                        if (!response.ok) {
+                            throw new Error(`Failed to fetch ${category}`);
+                        }
+                        const data = await response.json();
+                        return [category, data.map(item => ({
+                            id: item.id,
+                            name: item.name,
+                            image: item.image || '/placeholder.svg?height=200&width=200'
+                        }))];
                     })
-                )
+                );
 
-                setCategoryData(Object.fromEntries(results))
-            } finally {
-                await session.close()
+                setCategoryData(Object.fromEntries(results));
+            } catch (error) {
+                console.error('Error fetching data:', error);
             }
         }
 
-        fetchData()
+        fetchData();
     }, [])
 
     return (

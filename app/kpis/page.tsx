@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent } from "@/components/ui/card"
 import { Sidebar } from '@/components/Sidebar'
 import ClientOnlyGraphVisualization from '@/components/ClientOnlyGraphVisualization'
-import driver from '@/lib/neo4j'
 import { KPI } from '@/lib/types'
 
 export default function KPIsPage() {
@@ -13,13 +12,15 @@ export default function KPIsPage() {
 
     useEffect(() => {
         const fetchKPIs = async () => {
-            const session = driver.session()
             try {
-                const result = await session.run('MATCH (k:KPI) RETURN k')
-                const fetchedKPIs = result.records.map(record => record.get('k').properties as KPI)
+                const response = await fetch('/api/kpis')
+                if (!response.ok) {
+                    throw new Error('Failed to fetch KPIs')
+                }
+                const fetchedKPIs = await response.json()
                 setKPIs(fetchedKPIs)
-            } finally {
-                await session.close()
+            } catch (error) {
+                console.error('Error fetching KPIs:', error)
             }
         }
         fetchKPIs()

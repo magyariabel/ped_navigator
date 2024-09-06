@@ -13,16 +13,18 @@ export default function InterventionPointsPage() {
 
     useEffect(() => {
         const fetchInterventionPoints = async () => {
-            const session = driver.session()
             try {
-                const result = await session.run('MATCH (i:Intervention_points) RETURN i')
-                const fetchedInterventionPoints = result.records.map(record => record.get('i').properties as InterventionPoint)
-                setInterventionPoints(fetchedInterventionPoints)
-            } finally {
-                await session.close()
+                const response = await fetch('/api/intervention-points');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch intervention points');
+                }
+                const fetchedInterventionPoints = await response.json();
+                setInterventionPoints(fetchedInterventionPoints);
+            } catch (error) {
+                console.error('Error fetching intervention points:', error);
             }
         }
-        fetchInterventionPoints()
+        fetchInterventionPoints();
     }, [])
 
     return (
