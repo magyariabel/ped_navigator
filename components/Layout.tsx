@@ -1,6 +1,6 @@
 import React from 'react'
-import { Breadcrumbs } from './Breadcrumbs'
-import { SearchBar } from './SearchBar'
+import Breadcrumbs from './Breadcrumbs'
+import SearchBar from './SearchBar'
 
 export function Layout({ children }: { children: React.ReactNode }) {
     return (

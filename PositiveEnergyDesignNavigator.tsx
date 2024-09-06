@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import Image from 'next/image'
+import driver from '@/lib/neo4j'
 
 // Mock data - replace this with your actual data from Neo4j
 const mockData = {
@@ -38,7 +39,7 @@ function ItemCard({ item }: { item: Item }) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
-    <Card 
+    <Card
       className="w-full h-48 flex items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -58,7 +59,7 @@ export default function PositiveEnergyDesignNavigator() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8 text-center">Positive Energy Design Navigator</h1>
-      
+
       <Tabs defaultValue="stakeholders" className="w-full">
         <TabsList className="grid w-full grid-cols-4 mb-8">
           <TabsTrigger value="stakeholders">Stakeholders</TabsTrigger>
@@ -66,7 +67,7 @@ export default function PositiveEnergyDesignNavigator() {
           <TabsTrigger value="kpis">KPIs</TabsTrigger>
           <TabsTrigger value="tools">Tools</TabsTrigger>
         </TabsList>
-        
+
         {Object.entries(mockData).map(([category, items]) => (
           <TabsContent key={category} value={category} className="mt-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
