@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Card, CardContent } from "@/components/ui/card"
 import { Sidebar } from '@/components/Sidebar'
-import { GraphVisualization } from '@/components/GraphVisualization'
+import ClientOnlyGraphVisualization from '@/components/ClientOnlyGraphVisualization'
 import driver from '@/lib/neo4j'
 import { Stakeholder } from '@/lib/types'
 
@@ -51,7 +51,7 @@ export default function StakeholdersPage() {
             </div>
             <Sidebar selectedItem={selectedStakeholder} />
             <div className="md:col-span-3 mt-8">
-                <GraphVisualization selectedItem={selectedStakeholder} />
+                <ClientOnlyGraphVisualization selectedItem={selectedStakeholder} />
             </div>
         </div>
     )

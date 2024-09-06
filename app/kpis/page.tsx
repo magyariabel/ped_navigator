@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Card, CardContent } from "@/components/ui/card"
 import { Sidebar } from '@/components/Sidebar'
-import { GraphVisualization } from '@/components/GraphVisualization'
+import ClientOnlyGraphVisualization from '@/components/ClientOnlyGraphVisualization'
 import driver from '@/lib/neo4j'
 import { KPI } from '@/lib/types'
 
@@ -53,7 +53,7 @@ export default function KPIsPage() {
             </div>
             <Sidebar selectedItem={selectedKPI} />
             <div className="md:col-span-3 mt-8">
-                <GraphVisualization selectedItem={selectedKPI} />
+                <ClientOnlyGraphVisualization selectedItem={selectedKPI} />
             </div>
         </div>
     )
