@@ -53,7 +53,7 @@ export default function ToolsPage() {
             </div>
             <Sidebar selectedItem={selectedTool} />
             <div className="md:col-span-3 mt-8">
-                <ClientOnlyGraphVisualization selectedItem={selectedTool} />
+                <ClientOnlyGraphVisualization selectedItem={selectedTool ? { ...selectedTool, type: 'Tools' } : null} />
             </div>
         </div>
     )
