@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import ForceGraph2D from 'react-force-graph-2d'
 import driver from '@/lib/neo4j'
 
-export function GraphVisualization({ selectedItem }: { selectedItem: any }) {
+export const GraphVisualization = ({ selectedItem }: { selectedItem: any }) => {
     const [graphData, setGraphData] = useState({ nodes: [], links: [] })
 
     useEffect(() => {
