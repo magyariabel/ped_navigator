@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent } from "@/components/ui/card"
 import { Sidebar } from '@/components/Sidebar'
 import ClientOnlyGraphVisualization from '@/components/ClientOnlyGraphVisualization'
-import driver from '@/lib/neo4j'
 import { InterventionPoint } from '@/lib/types'
 
 export default function InterventionPointsPage() {

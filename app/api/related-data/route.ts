@@ -14,19 +14,22 @@ export async function GET(request: Request) {
     try {
         const query = `
         MATCH (n:${type} {id: $id})
-        OPTIONAL MATCH (n)-[:RELATED_TO]->(k:KPI)
-        OPTIONAL MATCH (n)-[:RELATED_TO]->(t:Tools)
-        OPTIONAL MATCH (n)-[:RELATED_TO]->(i:Intervention_points)
+        OPTIONAL MATCH (n)-[:IMPACTS]->(kpi:KPIs)
+        OPTIONAL MATCH (n)-[:USES]->(tool:Tools)
+        OPTIONAL MATCH (n)-[:ADDRESSES]->(ip:InterventionPoints)
         RETURN 
-            collect(distinct k {.id, .name}) as kpis,
-            collect(distinct t {.id, .name}) as tools,
-            collect(distinct i {.id, .name}) as interventionPoints
+            collect(distinct kpi) as kpis,
+            collect(distinct tool) as tools,
+            collect(distinct ip) as interventionPoints
         `;
         const result = await session.run(query, { id });
 
-        const data = result.records[0].toObject();
-
-        return NextResponse.json(data);
+        const data = result.records[0];
+        return NextResponse.json({
+            kpis: data.get('kpis').map(node => node.properties),
+            tools: data.get('tools').map(node => node.properties),
+            interventionPoints: data.get('interventionPoints').map(node => node.properties)
+        });
     } finally {
         await session.close();
     }

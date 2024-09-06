@@ -13,23 +13,23 @@ export default function KPIsPage() {
     useEffect(() => {
         const fetchKPIs = async () => {
             try {
-                const response = await fetch('/api/kpis')
+                const response = await fetch('/api/kpis');
                 if (!response.ok) {
-                    throw new Error('Failed to fetch KPIs')
+                    throw new Error('Failed to fetch KPIs');
                 }
-                const fetchedKPIs = await response.json()
-                setKPIs(fetchedKPIs)
+                const fetchedKPIs = await response.json();
+                setKPIs(fetchedKPIs);
             } catch (error) {
-                console.error('Error fetching KPIs:', error)
+                console.error('Error fetching KPIs:', error);
             }
         }
-        fetchKPIs()
+        fetchKPIs();
     }, [])
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="md:col-span-2">
-                <h2 className="text-2xl font-semibold mb-4">Key Performance Indicators</h2>
+                <h2 className="text-2xl font-semibold mb-4">KPIs</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {kpis.map(kpi => (
                         <Card
@@ -47,8 +47,6 @@ export default function KPIsPage() {
                     <div className="mt-8">
                         <h3 className="text-xl font-semibold mb-2">{selectedKPI.name}</h3>
                         <p>{selectedKPI.description}</p>
-                        <h4 className="text-lg font-semibold mt-4 mb-2">Calculation Method</h4>
-                        <p>{selectedKPI.calculationMethod}</p>
                     </div>
                 )}
             </div>
