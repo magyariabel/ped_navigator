@@ -1,19 +1,32 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import driver from '@/lib/neo4j'
+import { Card, CardContent } from "./ui/card"
 
-export function Sidebar({ selectedItem }: { selectedItem: any }) {
+export function Sidebar({ selectedItem }) {
     const [relatedKPIs, setRelatedKPIs] = useState([])
     const [relatedTools, setRelatedTools] = useState([])
     const [relatedInterventionPoints, setRelatedInterventionPoints] = useState([])
 
     useEffect(() => {
         if (selectedItem) {
-            // Fetch related data from Neo4j based on the selectedItem
-            // Update state with the fetched data
+            const fetchRelatedData = async () => {
+                try {
+                    const response = await fetch(`/api/related-data?type=${selectedItem.type}&id=${selectedItem.id}`);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch related data');
+                    }
+                    const data = await response.json();
+                    setRelatedKPIs(data.kpis);
+                    setRelatedTools(data.tools);
+                    setRelatedInterventionPoints(data.interventionPoints);
+                } catch (error) {
+                    console.error('Error fetching related data:', error);
+                }
+            };
+            fetchRelatedData();
         }
-    }, [selectedItem])
+    }, [selectedItem]);
 
     return (
         <div className="bg-gray-100 p-4 rounded-lg">

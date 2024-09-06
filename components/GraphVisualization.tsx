@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import ForceGraph2D from 'react-force-graph-2d'
 
-export const GraphVisualization = ({ selectedItem }: { selectedItem: any }) => {
+const GraphVisualization = ({ selectedItem }: { selectedItem: any }) => {
     const [graphData, setGraphData] = useState({ nodes: [], links: [] })
 
     useEffect(() => {
@@ -24,3 +24,5 @@ export const GraphVisualization = ({ selectedItem }: { selectedItem: any }) => {
         />
     )
 }
+
+export { GraphVisualization }
